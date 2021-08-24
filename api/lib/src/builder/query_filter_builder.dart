@@ -4,10 +4,10 @@ abstract class QueryFilterBuilder {
   const QueryFilterBuilder();
 
   factory QueryFilterBuilder.instance() {
-    return const _QueryFilterBuilder();
+    return _QueryFilterBuilder();
   }
   factory QueryFilterBuilder.eq(String column, dynamic value) {
-    const filter = _QueryFilterBuilder();
+    final filter = _QueryFilterBuilder();
     return filter.eq(column, value);
   }
 
@@ -23,8 +23,8 @@ abstract class QueryFilterBuilder {
 }
 
 class _QueryFilterBuilder extends QueryFilterBuilder {
-  final Set<FilterOperation> _filter = const {};
-  const _QueryFilterBuilder();
+  final Set<FilterOperation> _filter = {};
+  _QueryFilterBuilder();
 
   @override
   QueryFilterBuilder eq(String column, value) {

@@ -10,26 +10,23 @@ abstract class SavageClient {
 }
 
 class SavagePostgrestClient extends SavageClient {
-  final String _url;
-  final String _apiVersion;
   late PostgrestClient _client;
   final ConverterFactory _converterFactory;
 
   factory SavagePostgrestClient(
       {String? url,
       String? apiVersion,
+      String? token,
       PostgrestClient? client,
       ConverterFactory? converterFactory}) {
     return SavagePostgrestClient._(
-      url ?? '',
-      apiVersion ?? '',
-      client ?? PostgrestClient(url ?? ''),
+      client ??
+          PostgrestClient('${url ?? ''}${apiVersion ?? ''}').auth(token ?? ''),
       converterFactory ?? ConverterFactory(),
     );
   }
 
-  SavagePostgrestClient._(
-      this._url, this._apiVersion, this._client, this._converterFactory);
+  SavagePostgrestClient._(this._client, this._converterFactory);
   // const f = const QueryFilterBuilder.empty;
   @override
   Future<T> get<T>(String from,
@@ -46,6 +43,7 @@ class SavagePostgrestClient extends SavageClient {
     });
 
     final response = await builder.execute();
+    print(response);
     final json = jsonDecode(response.data);
     return _converterFactory.get<T>().fromJson(json) as T;
   }

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:dartz/dartz.dart';
 import 'package:savageapi/src/core/endpoints/base_endpoint.dart';
 import 'package:savageapi/src/core/failure.dart';

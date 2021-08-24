@@ -5,8 +5,10 @@ import 'client.dart';
 class SavageApi implements SavageApiCalls {
   final SavageClient client;
 
-  SavageApi({required url, apiVersion = '/api/v2/'})
-      : client = SavagePostgrestClient(url: url, apiVersion: apiVersion);
+  SavageApi(
+      {required String url, String apiVersion = '/rest/v1', String token = ''})
+      : client = SavagePostgrestClient(
+            url: url, apiVersion: apiVersion, token: token);
 
   @override
   AbilityEndpoint ability() {

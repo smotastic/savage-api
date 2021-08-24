@@ -11,6 +11,7 @@ dev_dependencies:
   build_runner: ^2.0.4
   json_serializable: ^5.0.0
   pedantic: ^1.10.0
+  test: ^1.17.11
 dependencies:
   dartz: ^0.10.0
   equatable: ^2.0.3
