@@ -13,9 +13,6 @@ abstract class DetailEndpoint<T extends BaseResource> {
   Future<Either<ApiFailure, T>> get(dynamic id);
 }
 
-// abstract class PaginatedEndpoint<T extends BaseResource>
-//     extends BaseEndpoint<T> {
-//   PaginatedEndpoint(SavageClient client) : super(client);
-
-//   Future<Either<ApiFailure, Pagination>> page(num pageSize, num offset);
-// }
+abstract class PaginatedEndpoint<T extends BaseResource> {
+  // Future<Either<ApiFailure, Pagination>> page(num pageSize, num offset);
+}
