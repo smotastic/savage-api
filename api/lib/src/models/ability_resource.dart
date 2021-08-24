@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:savageapi/src/models/base_resource.dart';
+import 'package:savageapi/src/core/models/base_resource.dart';
 
 part 'ability_resource.g.dart';
 
