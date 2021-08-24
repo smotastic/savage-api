@@ -52,8 +52,11 @@ class SavagePostgrestClient extends SavageClient {
 
   final Map<FilterOperator, String> _filterOperatorMap = {
     FilterOperator.eq: 'eq',
+    FilterOperator.neq: 'neq',
     FilterOperator.lt: 'lt',
+    FilterOperator.lte: 'lte',
     FilterOperator.gt: 'gt',
+    FilterOperator.gte: 'gte',
     FilterOperator.like: 'like',
   };
 }

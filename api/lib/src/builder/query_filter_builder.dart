@@ -12,20 +12,29 @@ abstract class QueryFilterBuilder {
   }
 
   QueryFilterBuilder eq(String column, dynamic value);
+  QueryFilterBuilder neq(String column, dynamic value);
   QueryFilterBuilder lt(String column, dynamic value);
+  QueryFilterBuilder lte(String column, dynamic value);
   QueryFilterBuilder gt(String column, dynamic value);
-  QueryFilterBuilder like(String column, dynamic value);
+  QueryFilterBuilder gte(String column, dynamic value);
+  QueryFilterBuilder like(String column, String pattern);
 
   Set<FilterOperation> retrieveFilter();
 }
 
 class _QueryFilterBuilder extends QueryFilterBuilder {
-  final Set<FilterOperation> filter = const {};
+  final Set<FilterOperation> _filter = const {};
   const _QueryFilterBuilder();
 
   @override
   QueryFilterBuilder eq(String column, value) {
     _addFilter(column, FilterOperator.eq, value);
+    return this;
+  }
+
+  @override
+  QueryFilterBuilder neq(String column, value) {
+    _addFilter(column, FilterOperator.neq, value);
     return this;
   }
 
@@ -36,28 +45,40 @@ class _QueryFilterBuilder extends QueryFilterBuilder {
   }
 
   @override
-  QueryFilterBuilder like(String column, value) {
-    _addFilter(column, FilterOperator.like, value);
-    throw UnimplementedError();
+  QueryFilterBuilder gte(String column, value) {
+    _addFilter(column, FilterOperator.gte, value);
+    return this;
   }
 
   @override
   QueryFilterBuilder lt(String column, value) {
     _addFilter(column, FilterOperator.lt, value);
-    throw UnimplementedError();
+    return this;
+  }
+
+  @override
+  QueryFilterBuilder lte(String column, value) {
+    _addFilter(column, FilterOperator.lte, value);
+    return this;
+  }
+
+  @override
+  QueryFilterBuilder like(String column, String pattern) {
+    _addFilter(column, FilterOperator.like, pattern);
+    return this;
   }
 
   @override
   Set<FilterOperation> retrieveFilter() {
-    return filter;
+    return _filter;
   }
 
   void _addFilter(String column, FilterOperator operator, dynamic value) {
-    filter.add(FilterOperation(column, operator, value));
+    _filter.add(FilterOperation(column, operator, value));
   }
 }
 
-enum FilterOperator { eq, gt, lt, like }
+enum FilterOperator { eq, neq, gt, gte, lt, lte, like }
 
 class FilterOperation extends Equatable {
   final String column;
