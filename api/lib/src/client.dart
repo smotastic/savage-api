@@ -9,18 +9,18 @@ abstract class SavageClient {
       {String columns = '*', QueryFilterBuilder? filter});
 }
 
-class SavageRemoteClient extends SavageClient {
+class SavagePostgrestClient extends SavageClient {
   final String _url;
   final String _apiVersion;
   late PostgrestClient _client;
   final ConverterFactory _converterFactory;
 
-  factory SavageRemoteClient(
+  factory SavagePostgrestClient(
       {String? url,
       String? apiVersion,
       PostgrestClient? client,
       ConverterFactory? converterFactory}) {
-    return SavageRemoteClient._(
+    return SavagePostgrestClient._(
       url ?? '',
       apiVersion ?? '',
       client ?? PostgrestClient(url ?? ''),
@@ -28,7 +28,7 @@ class SavageRemoteClient extends SavageClient {
     );
   }
 
-  SavageRemoteClient._(
+  SavagePostgrestClient._(
       this._url, this._apiVersion, this._client, this._converterFactory);
   // const f = const QueryFilterBuilder.empty;
   @override

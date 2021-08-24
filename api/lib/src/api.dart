@@ -6,7 +6,7 @@ class SavageApi implements SavageApiCalls {
   final SavageClient client;
 
   SavageApi({required url, apiVersion = '/api/v2/'})
-      : client = SavageRemoteClient(url: url, apiVersion: apiVersion);
+      : client = SavagePostgrestClient(url: url, apiVersion: apiVersion);
 
   @override
   AbilityEndpoint ability() {
