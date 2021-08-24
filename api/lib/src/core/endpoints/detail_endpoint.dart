@@ -12,6 +12,9 @@ abstract class DetailEndpoint<T extends BaseResource>
   Future<Either<ApiFailure, T>> get(dynamic id) async {
     final result =
         await client.get<T>(from, filter: QueryFilterBuilder.eq(idColumn, id));
-    return Right(result);
+    if (result.isNotEmpty) {
+      return Right(result.first);
+    }
+    return Left(UnknownApiFailure());
   }
 }

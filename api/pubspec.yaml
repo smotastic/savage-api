@@ -17,3 +17,4 @@ dependencies:
   equatable: ^2.0.3
   json_annotation: ^4.1.0
   postgrest: ^0.1.5
+  supabase: ^0.2.3

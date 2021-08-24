@@ -8,3 +8,7 @@ abstract class ApiFailure extends Equatable {
   @override
   List<Object?> get props => [code];
 }
+
+class UnknownApiFailure extends ApiFailure {
+  UnknownApiFailure() : super(0);
+}

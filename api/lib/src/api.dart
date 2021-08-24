@@ -1,3 +1,5 @@
+import 'package:savageapi/src/core/clients/postgrest_client.dart';
+import 'package:savageapi/src/core/clients/supabase_client.dart';
 import 'package:savageapi/src/endpoints/ability_endpoint.dart';
 
 import 'client.dart';
@@ -5,10 +7,19 @@ import 'client.dart';
 class SavageApi implements SavageApiCalls {
   final SavageClient client;
 
-  SavageApi(
-      {required String url, String apiVersion = '/rest/v1', String token = ''})
-      : client = SavagePostgrestClient(
-            url: url, apiVersion: apiVersion, token: token);
+  factory SavageApi.rest(String url,
+      {String apiVersion = '/rest/v1', String token = ''}) {
+    final _client =
+        SavagePostgrestClient(url: url, apiVersion: apiVersion, token: token);
+    return SavageApi(_client);
+  }
+
+  factory SavageApi.supabase(String url, String key) {
+    final _client = SavageSupabaseClient(url, key);
+    return SavageApi(_client);
+  }
+
+  SavageApi(this.client);
 
   @override
   AbilityEndpoint ability() {
