@@ -9,7 +9,7 @@ void main() {
     final result = await api.ability().get(1);
     final res = result.getOrElse(() => throw 0);
     print(res.name);
-  });
+  }, skip: true);
 
   test('Should use api poistgres', () async {
     final api = SavageApi.rest('https://gtcalupnsgqauomddosz.supabase.co',

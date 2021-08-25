@@ -14,9 +14,8 @@ class SavageSupabaseClient extends SavageClient {
   SavageSupabaseClient._(this._client, this._converterFactory);
 
   @override
-  Future<List<T>> get<T>(String from,
-      {String columns = '*', QueryFilterBuilder? filter}) async {
-    final response = await _client.from(from).select(columns).execute();
+  Future<List<T>> get<T>(QueryBuilder builder) async {
+    final response = await _client.from(builder.from).select().execute();
     final responseData = response.data as List<dynamic>;
     return responseData
         .map((json) => _converterFactory.get<T>().fromJson(json) as T)

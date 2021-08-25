@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 abstract class QueryFilterBuilder {
-  const QueryFilterBuilder();
+  QueryFilterBuilder();
 
   factory QueryFilterBuilder.instance() {
     return _QueryFilterBuilder();

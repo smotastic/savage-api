@@ -1,5 +1,5 @@
 import 'package:postgrest/postgrest.dart';
-import 'package:savageapi/src/builder/query_builder.dart';
+import 'package:savageapi/src/builder/builder.dart';
 import 'package:savageapi/src/client.dart';
 import 'package:savageapi/src/converter.dart';
 
@@ -25,27 +25,36 @@ class SavagePostgrestClient extends SavageClient {
   SavagePostgrestClient._(this._client, this._converterFactory);
   // const f = const QueryFilterBuilder.empty;
   @override
-  Future<List<T>> get<T>(String from,
-      {String columns = '*', QueryFilterBuilder? filter}) async {
-    filter ??= QueryFilterBuilder.instance();
-    final builder = _client.from(from).select(columns);
+  Future<List<T>> get<T>(QueryBuilder builder) async {
+    final _filterBuilder = builder.filterBuilder;
+    final _transformBuilder = builder.transformBuilder;
 
-    filter.retrieveFilter().forEach((filterOp) {
-      builder.filter(
+    var columns = '*';
+    final selectOp = _transformBuilder.retrieveOperation<SelectOperation>();
+    if (selectOp != null) {
+      columns = selectOp.columns;
+    }
+
+    final supabuilder = _client.from(builder.from).select(columns);
+
+    _filterBuilder.retrieveFilter().forEach((filterOp) {
+      supabuilder.filter(
         filterOp.column,
         _filterOperatorMap[filterOp.operator]!,
         filterOp.value,
       );
     });
 
-    final response = await builder.execute();
-    print(response);
+    final limitOp = _transformBuilder.retrieveOperation<LimitOperation>();
+    if (limitOp != null) {
+      supabuilder.limit(limitOp.limit);
+    }
+
+    final response = await supabuilder.execute();
     final responseData = response.data as List<dynamic>;
     return responseData
         .map((json) => _converterFactory.get<T>().fromJson(json) as T)
         .toList();
-    // final json = jsonDecode(response.data);
-    // return _converterFactory.get<T>().fromJson(json) as T;
   }
 
   final Map<FilterOperator, String> _filterOperatorMap = {
