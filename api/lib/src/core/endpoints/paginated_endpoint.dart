@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:savageapi/src/builder/builder.dart';
 import 'package:savageapi/src/core/endpoints/base_endpoint.dart';
 import 'package:savageapi/src/core/failure.dart';
 import 'package:savageapi/src/core/models/base_resource.dart';
@@ -6,9 +7,11 @@ import 'package:savageapi/src/core/models/base_resource.dart';
 abstract class PaginatedEndpoint<T extends BaseResource>
     implements ClientProvider {
   String get from;
-  Future<Either<ApiFailure, int>> page(num pageSize, num offset,
+  Future<Either<ApiFailure, List<T>>> page(num pageSize, num offset,
       {String columns = '*'}) async {
-    // client.get(from, columns: columns);
-    return Right(1);
+    final result = await client.get<T>(QueryBuilder.from(from)
+        .select()
+        .range(offset.toInt(), offset.toInt() + pageSize.toInt()));
+    return Right(result);
   }
 }
