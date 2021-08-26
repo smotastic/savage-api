@@ -7,13 +7,15 @@ import 'client.dart';
 class SavageApi implements SavageApiCalls {
   final SavageClient client;
 
-  factory SavageApi.rest(String url,
+  factory SavageApi.postgrest(String url,
       {String apiVersion = '/rest/v1', String token = ''}) {
     final _client =
         SavagePostgrestClient(url: url, apiVersion: apiVersion, token: token);
     return SavageApi(_client);
   }
 
+  /// @deprecrated use [SavageApi.postgrest]
+  @deprecated
   factory SavageApi.supabase(String url, String key) {
     final _client = SavageSupabaseClient(url, key);
     return SavageApi(_client);
