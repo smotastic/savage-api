@@ -1,25 +1,24 @@
 import 'package:equatable/equatable.dart';
 
-abstract class QueryFilterBuilder {
-  QueryFilterBuilder();
-
-  factory QueryFilterBuilder.instance() {
-    return _QueryFilterBuilder();
-  }
-  factory QueryFilterBuilder.eq(String column, dynamic value) {
-    final filter = _QueryFilterBuilder();
-    return filter.eq(column, value);
-  }
-
-  QueryFilterBuilder eq(String column, dynamic value);
-  QueryFilterBuilder neq(String column, dynamic value);
-  QueryFilterBuilder lt(String column, dynamic value);
-  QueryFilterBuilder lte(String column, dynamic value);
-  QueryFilterBuilder gt(String column, dynamic value);
-  QueryFilterBuilder gte(String column, dynamic value);
-  QueryFilterBuilder like(String column, String pattern);
+abstract class QueryFilterBuilderDelegate<T> {
+  T eq(String column, dynamic value);
+  T neq(String column, dynamic value);
+  T lt(String column, dynamic value);
+  T lte(String column, dynamic value);
+  T gt(String column, dynamic value);
+  T gte(String column, dynamic value);
+  T like(String column, String pattern);
 
   Set<FilterOperation> retrieveFilter();
+}
+
+abstract class QueryFilterBuilder
+    implements QueryFilterBuilderDelegate<QueryFilterBuilder> {
+  QueryFilterBuilder();
+
+  static QueryFilterBuilder instance() {
+    return _QueryFilterBuilder();
+  }
 }
 
 class _QueryFilterBuilder extends QueryFilterBuilder {

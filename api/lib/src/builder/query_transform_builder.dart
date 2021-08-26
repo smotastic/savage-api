@@ -1,20 +1,21 @@
 import 'package:equatable/equatable.dart';
 
-abstract class QueryTransformBuilder {
-  QueryTransformBuilder limit(int limit);
-  QueryTransformBuilder range(int from, int to);
-  QueryTransformBuilder select([String columns = '*']);
-  QueryTransformBuilder order(String column,
-      {bool ascending = false, bool nullsFirst = false});
+abstract class QueryTransformBuilderDelegate<T> {
+  T limit(int limit);
+  T range(int from, int to);
+  T select([String columns = '*']);
+  T order(String column, {bool ascending = false, bool nullsFirst = false});
 
+  V? retrieveOperation<V extends TransformOperation>();
+}
+
+abstract class QueryTransformBuilder
+    implements QueryTransformBuilderDelegate<QueryTransformBuilder> {
   const QueryTransformBuilder();
 
   factory QueryTransformBuilder.instance() {
     return _QueryTransformBuilder();
   }
-
-  T? retrieveOperation<T extends TransformOperation>();
-  // Set<TransformOperation> retrieveOperations();
 }
 
 class _QueryTransformBuilder extends QueryTransformBuilder {

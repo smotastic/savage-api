@@ -26,18 +26,15 @@ class SavagePostgrestClient extends SavageClient {
   // const f = const QueryFilterBuilder.empty;
   @override
   Future<List<T>> get<T>(QueryBuilder builder) async {
-    final _filterBuilder = builder.filterBuilder;
-    final _transformBuilder = builder.transformBuilder;
-
     var columns = '*';
-    final selectOp = _transformBuilder.retrieveOperation<SelectOperation>();
+    final selectOp = builder.retrieveOperation<SelectOperation>();
     if (selectOp != null) {
       columns = selectOp.columns;
     }
 
     final supabuilder = _client.from(builder.from).select(columns);
 
-    _filterBuilder.retrieveFilter().forEach((filterOp) {
+    builder.retrieveFilter().forEach((filterOp) {
       supabuilder.filter(
         filterOp.column,
         _filterOperatorMap[filterOp.operator]!,
@@ -45,7 +42,7 @@ class SavagePostgrestClient extends SavageClient {
       );
     });
 
-    final limitOp = _transformBuilder.retrieveOperation<LimitOperation>();
+    final limitOp = builder.retrieveOperation<LimitOperation>();
     if (limitOp != null) {
       supabuilder.limit(limitOp.limit);
     }

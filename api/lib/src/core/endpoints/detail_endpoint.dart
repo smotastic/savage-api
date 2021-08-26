@@ -11,6 +11,7 @@ abstract class DetailEndpoint<T extends BaseResource>
 
   Future<Either<ApiFailure, T>> get(dynamic id) async {
     final builder = QueryBuilder.from(from);
+    // QueryBuilder.from(from).select().eq(idColumn, id);
     builder.select().eq(idColumn, id);
     final result = await client.get<T>(builder);
     if (result.isNotEmpty) {
