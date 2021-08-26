@@ -1,6 +1,28 @@
 import 'package:savageapi/src/builder/query_filter_builder.dart';
 import 'package:savageapi/src/builder/query_transform_builder.dart';
 
+class QueryBuilder
+    with _QueryFilterBuilderDelegate, _QueryTransformBuilderDelegate {
+  final String _from;
+  final QueryFilterBuilder _filterBuilder;
+  final QueryTransformBuilder _transformBuilder;
+
+  String get from => _from;
+  @override
+  QueryFilterBuilder get filterDelegate => _filterBuilder;
+  @override
+  QueryTransformBuilder get transformDelegate => _transformBuilder;
+  @override
+  QueryBuilder get _this => this;
+
+  QueryBuilder._(this._from, this._filterBuilder, this._transformBuilder);
+
+  factory QueryBuilder.from(String from) {
+    return QueryBuilder._(
+        from, QueryFilterBuilder.instance(), QueryTransformBuilder.instance());
+  }
+}
+
 abstract class _QueryTransformBuilderDelegate
     implements QueryTransformBuilderDelegate<QueryBuilder> {
   QueryTransformBuilder get transformDelegate;
@@ -87,29 +109,5 @@ abstract class _QueryFilterBuilderDelegate
   @override
   Set<FilterOperation> retrieveFilter() {
     return filterDelegate.retrieveFilter();
-  }
-}
-
-abstract class QueryBuilderDelegate {}
-
-class QueryBuilder
-    with _QueryFilterBuilderDelegate, _QueryTransformBuilderDelegate {
-  final String _from;
-  final QueryFilterBuilder _filterBuilder;
-  final QueryTransformBuilder _transformBuilder;
-
-  String get from => _from;
-  @override
-  QueryFilterBuilder get filterDelegate => _filterBuilder;
-  @override
-  QueryTransformBuilder get transformDelegate => _transformBuilder;
-  @override
-  QueryBuilder get _this => this;
-
-  QueryBuilder._(this._from, this._filterBuilder, this._transformBuilder);
-
-  factory QueryBuilder.from(String from) {
-    return QueryBuilder._(
-        from, QueryFilterBuilder.instance(), QueryTransformBuilder.instance());
   }
 }

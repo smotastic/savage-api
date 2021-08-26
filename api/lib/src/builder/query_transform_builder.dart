@@ -30,14 +30,14 @@ class _QueryTransformBuilder extends QueryTransformBuilder {
   @override
   QueryTransformBuilder order(String column,
       {bool ascending = false, bool nullsFirst = false}) {
-    // TODO: implement order
-    throw UnimplementedError();
+    _addTransform(OrderOperation(column, ascending, nullsFirst));
+    return this;
   }
 
   @override
   QueryTransformBuilder range(int from, int to) {
-    // TODO: implement range
-    throw UnimplementedError();
+    _addTransform(RangeOperation(from, to));
+    return this;
   }
 
   @override
@@ -79,4 +79,25 @@ class SelectOperation extends TransformOperation {
 
   @override
   List<Object?> get props => [_columns];
+}
+
+class RangeOperation extends TransformOperation {
+  final int from;
+  final int to;
+
+  RangeOperation(this.from, this.to);
+
+  @override
+  List<Object?> get props => [from, to];
+}
+
+class OrderOperation extends TransformOperation {
+  final String column;
+  final bool ascending;
+  final bool nullsFirst;
+
+  OrderOperation(this.column, this.ascending, this.nullsFirst);
+
+  @override
+  List<Object?> get props => [column, ascending, nullsFirst];
 }

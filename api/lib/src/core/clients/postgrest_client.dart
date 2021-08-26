@@ -23,7 +23,6 @@ class SavagePostgrestClient extends SavageClient {
   }
 
   SavagePostgrestClient._(this._client, this._converterFactory);
-  // const f = const QueryFilterBuilder.empty;
   @override
   Future<List<T>> get<T>(QueryBuilder builder) async {
     var columns = '*';
@@ -32,10 +31,10 @@ class SavagePostgrestClient extends SavageClient {
       columns = selectOp.columns;
     }
 
-    final supabuilder = _client.from(builder.from).select(columns);
+    final postgrestbuilder = _client.from(builder.from).select(columns);
 
     builder.retrieveFilter().forEach((filterOp) {
-      supabuilder.filter(
+      postgrestbuilder.filter(
         filterOp.column,
         _filterOperatorMap[filterOp.operator]!,
         filterOp.value,
@@ -44,10 +43,20 @@ class SavagePostgrestClient extends SavageClient {
 
     final limitOp = builder.retrieveOperation<LimitOperation>();
     if (limitOp != null) {
-      supabuilder.limit(limitOp.limit);
+      postgrestbuilder.limit(limitOp.limit);
+    }
+    final rangeOp = builder.retrieveOperation<RangeOperation>();
+    if (rangeOp != null) {
+      postgrestbuilder.range(rangeOp.from, rangeOp.to);
     }
 
-    final response = await supabuilder.execute();
+    final orderOp = builder.retrieveOperation<OrderOperation>();
+    if (orderOp != null) {
+      postgrestbuilder.order(orderOp.column,
+          ascending: orderOp.ascending, nullsFirst: orderOp.nullsFirst);
+    }
+
+    final response = await postgrestbuilder.execute();
     final responseData = response.data as List<dynamic>;
     return responseData
         .map((json) => _converterFactory.get<T>().fromJson(json) as T)
