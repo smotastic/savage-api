@@ -2,7 +2,7 @@ import 'package:savageapi/src/converter.dart';
 import 'package:savageapi/src/core/clients/postgrest_client.dart';
 import 'package:savageapi/src/core/clients/supabase_client.dart';
 import 'package:savageapi/src/core/logger/logger.dart';
-import 'package:savageapi/src/endpoints/ability_endpoint.dart';
+import 'package:savageapi/src/features/ability/ability_endpoint.dart';
 
 import 'client.dart';
 

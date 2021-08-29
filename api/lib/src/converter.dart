@@ -1,16 +1,10 @@
-import 'package:savageapi/src/models/ability_resource.dart';
+import 'package:savageapi/src/features/ability/ability_resource.dart';
+
+import 'features/ability/ability_converter.dart';
 
 abstract class Converter<T> {
   const Converter();
   T fromJson(Map<String, dynamic> json);
-}
-
-class AbilityConverter extends Converter<AbilityResource> {
-  const AbilityConverter();
-  @override
-  AbilityResource fromJson(Map<String, dynamic> json) {
-    return AbilityResource.fromJson(json);
-  }
 }
 
 const Map<Type, Converter> _defaultConverters = {

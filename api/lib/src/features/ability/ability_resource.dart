@@ -8,8 +8,10 @@ class AbilityResource extends BaseResource {
   @JsonKey(defaultValue: 0)
   final int id;
   final String name;
+  final String description;
+  final String attribute;
 
-  AbilityResource(this.id, this.name);
+  AbilityResource(this.id, this.name, this.description, this.attribute);
 
   factory AbilityResource.fromJson(Map<String, dynamic> json) {
     return _$AbilityResourceFromJson(json);
@@ -17,6 +19,6 @@ class AbilityResource extends BaseResource {
 
   @override
   String toString() {
-    return 'Ability: [id:$id, name:$name]';
+    return 'Ability: [id:$id, name:$name, description:$description, attribute:$attribute]';
   }
 }
