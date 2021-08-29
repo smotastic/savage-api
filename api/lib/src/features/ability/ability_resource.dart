@@ -7,8 +7,11 @@ part 'ability_resource.g.dart';
 class AbilityResource extends BaseResource {
   @JsonKey(defaultValue: 0)
   final int id;
+  @JsonKey(defaultValue: '')
   final String name;
+  @JsonKey(defaultValue: '')
   final String description;
+  @JsonKey(defaultValue: '')
   final String attribute;
 
   AbilityResource(this.id, this.name, this.description, this.attribute);

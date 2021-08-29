@@ -1,10 +1,9 @@
 import 'package:savageapi/src/converter.dart';
 import 'package:savageapi/src/core/clients/postgrest_client.dart';
 import 'package:savageapi/src/core/clients/supabase_client.dart';
-import 'package:savageapi/src/core/logger/logger.dart';
-import 'package:savageapi/src/features/ability/ability_endpoint.dart';
-
 import 'client.dart';
+import 'features/ability/ability.dart';
+import 'features/equipment/equipment.dart';
 
 class SavageApi implements SavageApiCalls {
   final SavageClient client;
@@ -35,8 +34,14 @@ class SavageApi implements SavageApiCalls {
   AbilityEndpoint ability() {
     return AbilityEndpoint(client);
   }
+
+  @override
+  EquipmentEndpoint equipment() {
+    return EquipmentEndpoint(client);
+  }
 }
 
 abstract class SavageApiCalls {
   AbilityEndpoint ability();
+  EquipmentEndpoint equipment();
 }

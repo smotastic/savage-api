@@ -9,9 +9,9 @@ part of 'ability_resource.dart';
 AbilityResource _$AbilityResourceFromJson(Map<String, dynamic> json) =>
     AbilityResource(
       json['id'] as int? ?? 0,
-      json['name'] as String,
-      json['description'] as String,
-      json['attribute'] as String,
+      json['name'] as String? ?? '',
+      json['description'] as String? ?? '',
+      json['attribute'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AbilityResourceToJson(AbilityResource instance) =>

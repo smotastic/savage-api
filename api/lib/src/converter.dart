@@ -1,6 +1,5 @@
-import 'package:savageapi/src/features/ability/ability_resource.dart';
-
-import 'features/ability/ability_converter.dart';
+import 'features/ability/ability.dart';
+import 'features/equipment/equipment.dart';
 
 abstract class Converter<T> {
   const Converter();
@@ -9,6 +8,7 @@ abstract class Converter<T> {
 
 const Map<Type, Converter> _defaultConverters = {
   AbilityResource: AbilityConverter(),
+  EquipmentResource: EquipmentConverter(),
 };
 
 class ConverterFactory {
