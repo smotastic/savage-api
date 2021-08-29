@@ -3,7 +3,7 @@ name: Dart
 on: [push, pull_request]
 defaults:
   run:
-    working-directory: api
+    working-directory: .
 jobs:
   build:
     runs-on: ubuntu-latest
