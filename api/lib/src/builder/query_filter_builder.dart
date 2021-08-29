@@ -75,6 +75,11 @@ class _QueryFilterBuilder extends QueryFilterBuilder {
   void _addFilter(String column, FilterOperator operator, dynamic value) {
     _filter.add(FilterOperation(column, operator, value));
   }
+
+  @override
+  String toString() {
+    return _filter.toString();
+  }
 }
 
 enum FilterOperator { eq, neq, gt, gte, lt, lte, like }
@@ -88,4 +93,9 @@ class FilterOperation extends Equatable {
 
   @override
   List<Object?> get props => [column, operator, value];
+
+  @override
+  String toString() {
+    return 'FilterOp[$column $operator $value]';
+  }
 }

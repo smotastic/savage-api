@@ -58,6 +58,11 @@ class _QueryTransformBuilder extends QueryTransformBuilder {
     }
     return null;
   }
+
+  @override
+  String toString() {
+    return operations.toString();
+  }
 }
 
 abstract class TransformOperation extends Equatable {}
@@ -69,6 +74,11 @@ class LimitOperation extends TransformOperation {
   LimitOperation(this._limit);
   @override
   List<Object?> get props => [_limit];
+
+  @override
+  String toString() {
+    return 'LimitOp[$_limit]';
+  }
 }
 
 class SelectOperation extends TransformOperation {
@@ -79,6 +89,11 @@ class SelectOperation extends TransformOperation {
 
   @override
   List<Object?> get props => [_columns];
+
+  @override
+  String toString() {
+    return 'SelectOp[$_columns]';
+  }
 }
 
 class RangeOperation extends TransformOperation {
@@ -89,6 +104,11 @@ class RangeOperation extends TransformOperation {
 
   @override
   List<Object?> get props => [from, to];
+
+  @override
+  String toString() {
+    return 'RangeOp: [$from-$to]';
+  }
 }
 
 class OrderOperation extends TransformOperation {
@@ -100,4 +120,9 @@ class OrderOperation extends TransformOperation {
 
   @override
   List<Object?> get props => [column, ascending, nullsFirst];
+
+  @override
+  String toString() {
+    return 'OrderOp:[$column asc:$ascending nullsFirst:$nullsFirst]';
+  }
 }

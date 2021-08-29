@@ -21,6 +21,11 @@ class QueryBuilder
     return QueryBuilder._(
         from, QueryFilterBuilder.instance(), QueryTransformBuilder.instance());
   }
+
+  @override
+  String toString() {
+    return 'Filter: $filterDelegate; Transform: $transformDelegate';
+  }
 }
 
 abstract class _QueryTransformBuilderDelegate

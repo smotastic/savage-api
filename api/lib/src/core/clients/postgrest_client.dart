@@ -2,6 +2,7 @@ import 'package:postgrest/postgrest.dart';
 import 'package:savageapi/src/builder/builder.dart';
 import 'package:savageapi/src/client.dart';
 import 'package:savageapi/src/converter.dart';
+import 'package:savageapi/src/core/logger/logger.dart';
 
 class SavagePostgrestClient extends SavageClient {
   late PostgrestClient _client;
@@ -55,7 +56,7 @@ class SavagePostgrestClient extends SavageClient {
       postgrestbuilder.order(orderOp.column,
           ascending: orderOp.ascending, nullsFirst: orderOp.nullsFirst);
     }
-
+    Logger.I.d(builder);
     final response = await postgrestbuilder.execute();
     final responseData = response.data as List<dynamic>;
     return responseData

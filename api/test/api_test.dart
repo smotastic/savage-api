@@ -1,5 +1,4 @@
 import 'package:savageapi/savageapi.dart';
-import 'package:savageapi/src/converter.dart';
 import 'package:test/test.dart';
 
 void main() {
