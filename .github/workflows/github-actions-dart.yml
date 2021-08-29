@@ -7,7 +7,8 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment: 
+      name: dev
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1
@@ -16,4 +17,6 @@ jobs:
         run: dart pub get
 
       - name: Run tests
+        env: 
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: dart test
