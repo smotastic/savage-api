@@ -5,14 +5,13 @@ import 'package:savageapi/src/core/failure.dart';
 import 'package:savageapi/src/core/models/base_resource.dart';
 
 abstract class DetailEndpoint<T extends BaseResource>
-    implements ClientProvider {
+    implements ClientProvider, ColumnsProvider {
   String get from;
   String get idColumn => 'id';
 
-  Future<Either<ApiFailure, T>> get(dynamic id) async {
+  Future<Either<ApiFailure, T>> get(dynamic id, {String? columns}) async {
     final builder = QueryBuilder.from(from);
-    // QueryBuilder.from(from).select().eq(idColumn, id);
-    builder.select().eq(idColumn, id);
+    builder.select(columns ?? this.columns).eq(idColumn, id);
     final result = await client.get<T>(builder);
     if (result.isNotEmpty) {
       return Right(result.first);

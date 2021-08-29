@@ -1,4 +1,5 @@
 import 'package:savageapi/savageapi.dart';
+import 'package:savageapi/src/converter.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,8 +14,7 @@ void main() {
   }, skip: true);
 
   test('Should use detail api poistgres', () async {
-    final api = SavageApi.postgrest('https://gtcalupnsgqauomddosz.supabase.co',
-        token: token);
+    final api = SavageApi.postgrest(token: token);
 
     final result = await api.ability().get(1);
     final res = result.getOrElse(() => throw 0);
@@ -22,8 +22,7 @@ void main() {
   });
 
   test('Should use page api poistgres', () async {
-    final api = SavageApi.postgrest('https://gtcalupnsgqauomddosz.supabase.co',
-        token: token);
+    final api = SavageApi.postgrest(token: token);
 
     final result = await api.ability().page(10, 0);
     final res = result.getOrElse(() => throw 0);
@@ -31,8 +30,7 @@ void main() {
   });
 
   test('Should just find the names', () async {
-    final api = SavageApi.postgrest('https://gtcalupnsgqauomddosz.supabase.co',
-        token: token);
+    final api = SavageApi.postgrest(token: token);
 
     final result = await api.ability().findAllNames();
     final res = result.getOrElse(() => throw 0);

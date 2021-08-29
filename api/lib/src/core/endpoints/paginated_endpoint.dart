@@ -5,12 +5,13 @@ import 'package:savageapi/src/core/failure.dart';
 import 'package:savageapi/src/core/models/base_resource.dart';
 
 abstract class PaginatedEndpoint<T extends BaseResource>
-    implements ClientProvider {
+    implements ClientProvider, ColumnsProvider {
   String get from;
+
   Future<Either<ApiFailure, List<T>>> page(num pageSize, num offset,
-      {String columns = '*'}) async {
+      {String? columns}) async {
     final result = await client.get<T>(QueryBuilder.from(from)
-        .select()
+        .select(columns ?? this.columns)
         .range(offset.toInt(), offset.toInt() + pageSize.toInt()));
     return Right(result);
   }
