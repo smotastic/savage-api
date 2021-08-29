@@ -1,0 +1,22 @@
+name: Dart
+
+on: [push, pull_request]
+defaults:
+  run:
+    working-directory: api
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: 
+      name: dev
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Run tests
+        env: 
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: dart test
