@@ -1,5 +1,6 @@
 import 'package:savageapi/savageapi.dart';
 import 'package:savageapi/src/converter.dart';
+import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
 import '../config.dart';
@@ -15,7 +16,11 @@ void main() {
     final api = SavageApi.postgrest(
         token: token, converterFactory: ConverterFactory(additionalConverter));
     final result = await api.abilityEntry().page(10, 0);
-    final customAbilities = result.orElse(() => throw 0);
-    print(customAbilities);
+    final abilities = result.getOrElse(() => throw 0);
+
+    expect(abilities, hasLength(10));
+    for (var ability in abilities) {
+      expect(ability.name, isNotNull);
+    }
   });
 }

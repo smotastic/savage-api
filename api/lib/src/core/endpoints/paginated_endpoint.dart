@@ -12,7 +12,7 @@ abstract class PaginatedEndpoint<T extends BaseResource>
       {String? columns}) async {
     final result = await client.get<T>(QueryBuilder.from(from)
         .select(columns ?? this.columns)
-        .range(offset.toInt(), offset.toInt() + pageSize.toInt()));
+        .range(offset.toInt(), (offset.toInt() + pageSize.toInt()) - 1));
     return Right(result);
   }
 }
