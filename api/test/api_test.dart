@@ -1,8 +1,9 @@
 import 'package:savageapi/savageapi.dart';
 import 'package:test/test.dart';
 
+import 'config.dart';
+
 void main() {
-  final token = 'bla';
   test('Should use api supabase', () async {
     final api =
         SavageApi.supabase('https://gtcalupnsgqauomddosz.supabase.co', token);

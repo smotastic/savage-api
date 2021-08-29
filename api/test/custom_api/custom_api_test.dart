@@ -2,14 +2,13 @@ import 'package:savageapi/savageapi.dart';
 import 'package:savageapi/src/converter.dart';
 import 'package:test/scaffolding.dart';
 
+import '../config.dart';
 import 'ability_entry_api.dart';
 import 'ability_entry_resource.dart';
 
 final Map<Type, Converter> additionalConverter = {
   AbilityEntryResource: AbilityEntryConverter(),
 };
-
-final String token = 'bla';
 
 void main() {
   test('should use custom api', () async {

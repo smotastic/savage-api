@@ -58,6 +58,10 @@ class SavagePostgrestClient extends SavageClient {
     }
     Logger.I.d(builder);
     final response = await postgrestbuilder.execute();
+    if (response.error != null) {
+      Logger.I.e(response.error!.message);
+      return [];
+    }
     final responseData = response.data as List<dynamic>;
     return responseData
         .map((json) => _converterFactory.get<T>().fromJson(json) as T)
