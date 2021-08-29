@@ -14,7 +14,7 @@ void main() {
   test('should use custom api', () async {
     final api = SavageApi.postgrest(
         token: token, converterFactory: ConverterFactory(additionalConverter));
-    final result = await api.abilityEntry().page(10, 0, columns: 'name');
+    final result = await api.abilityEntry().page(10, 0);
     final customAbilities = result.orElse(() => throw 0);
     print(customAbilities);
   });
