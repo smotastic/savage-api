@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:savageapi/src/builder/query_builder.dart';
+import 'package:savageapi/src/core/builder/builder.dart';
 import 'package:savageapi/src/core/endpoints/base_endpoint.dart';
 import 'package:savageapi/src/core/failure.dart';
 import 'package:savageapi/src/core/models/base_resource.dart';

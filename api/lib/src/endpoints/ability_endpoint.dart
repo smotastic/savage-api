@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:savageapi/src/builder/query_builder.dart';
 import 'package:savageapi/src/client.dart';
+import 'package:savageapi/src/core/builder/builder.dart';
 import 'package:savageapi/src/core/endpoints/detail_endpoint.dart';
 import 'package:savageapi/src/core/endpoints/paginated_endpoint.dart';
 import 'package:savageapi/src/core/endpoints/base_endpoint.dart';

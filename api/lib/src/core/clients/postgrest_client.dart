@@ -1,7 +1,7 @@
 import 'package:postgrest/postgrest.dart';
-import 'package:savageapi/src/builder/builder.dart';
 import 'package:savageapi/src/client.dart';
 import 'package:savageapi/src/converter.dart';
+import 'package:savageapi/src/core/builder/builder.dart';
 import 'package:savageapi/src/core/logger/logger.dart';
 
 class SavagePostgrestClient extends SavageClient {

@@ -1,6 +1,6 @@
-import 'package:savageapi/src/builder/query_builder.dart';
 import 'package:savageapi/src/client.dart';
 import 'package:savageapi/src/converter.dart';
+import 'package:savageapi/src/core/builder/builder.dart';
 import 'package:supabase/supabase.dart';
 
 class SavageSupabaseClient extends SavageClient {

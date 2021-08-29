@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:savageapi/savageapi.dart';
-import 'package:savageapi/src/core/failure.dart';
 
 import 'ability_entry_resource.dart';
 

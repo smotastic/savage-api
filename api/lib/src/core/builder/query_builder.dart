@@ -1,5 +1,4 @@
-import 'package:savageapi/src/builder/query_filter_builder.dart';
-import 'package:savageapi/src/builder/query_transform_builder.dart';
+import 'builder.dart';
 
 class QueryBuilder
     with _QueryFilterBuilderDelegate, _QueryTransformBuilderDelegate {
