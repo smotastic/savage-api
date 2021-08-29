@@ -34,7 +34,7 @@ print(ability.id);
 
 # Customization
 The default endpoints will always supply the full object, with all attributes set.
-If needed, the api can be extended, to e.g. only fetch the names of a certain table, to show in a datatable.
+If needed, the api can be extended, to e.g. only fetch a certain column of a certain table, to show in a datatable.
 
 Also see `custom_api_test.dart`
 ```dart
