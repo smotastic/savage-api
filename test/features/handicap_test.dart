@@ -22,5 +22,5 @@ void main() {
 
       expect(res, hasLength(10));
     });
-  }, skip: true);
+  });
 }
