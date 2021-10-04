@@ -101,6 +101,102 @@ You should now be able to call your custom endpoint, which will only select the 
 ```dart
 api.customAbility().get(5);
 ```
+# Add new Table
+Checklist for adding a new Table (by example ability)
+* Create folder in feature
+  * Add ability_converter.dart
+  * Add ability_endpoint.dart
+  * Add ability_resource.dart
+  * Add ability.dart
+* Extend `SavageApiCalls` Interface in api.dart by your endpoint
+* Add your Converter in the converter.dart
+* Add a test for your new endpoint
+## Ability Lib
+ability.dart is just for exposing the underlying table.
+```dart
+export 'ability_resource.dart';
+export 'ability_endpoint.dart';
+export 'ability_converter.dart';
+```
+## Ability Converter
+The Converter extends the Converter class, and implements one method fromJson.
+With this the Conveter is able to convert the json to a resource.
+```dart
+class AbilityConverter extends Converter<AbilityResource> {
+  const AbilityConverter();
+  @override
+  AbilityResource fromJson(Map<String, dynamic> json) {
+    return AbilityResource.fromJson(json);
+  }
+}
+```
+## Ability Endpoint
+The endpoint is the api getting called by the SavageApi instance.
+With this you will be able to communicate with the datatable.
+
+```dart
+class AbilityEndpoint extends BaseEndpoint<AbilityResource>
+    with DetailEndpoint<AbilityResource>, PaginatedEndpoint<AbilityResource> {
+  AbilityEndpoint(SavageClient client) : super(client);
+
+  @override
+  String get from => 'ability';
+
+  Future<Either<ApiFailure, List<AbilityResource>>> findAllNames() async {
+    final builder = QueryBuilder.from(from).select('name');
+    final result = await client.get<AbilityResource>(builder);
+    return Right(result);
+  }
+}
+```
+## Ability Resource
+The resource data, which the endpoint returns for you.
+
+```dart
+@JsonSerializable()
+class AbilityResource extends BaseResource {
+  @JsonKey(defaultValue: 0)
+  final int id;
+  @JsonKey(defaultValue: '')
+  final String name;
+  @JsonKey(defaultValue: '')
+  final String description;
+  @JsonKey(defaultValue: '')
+  final String attribute;
+
+  AbilityResource(this.id, this.name, this.description, this.attribute);
+
+  factory AbilityResource.fromJson(Map<String, dynamic> json) {
+    return _$AbilityResourceFromJson(json);
+  }
+
+  @override
+  String toString() {
+    return 'Ability: [id:$id, name:$name, description:$description, attribute:$attribute]';
+  }
+}
+```
+## Extend SavageApiCalls
+`SavageApiCalls` is an interface getting implemented by the main api exposed to the client.
+```dart
+abstract class SavageApiCalls {
+  AbilityEndpoint ability();
+}
+class SavageApi extends SavageApiCalls {
+  // ...
+  AbilityEndpoint ability() {
+    return AbilityEndpoint(client);
+  }
+}
+```
+## Add Conveter
+Add your new Converter in the _defaultConverters to make it known to the api.
+
+```dart
+const Map<Type, Converter> _defaultConverters = {
+  AbilityResource: AbilityConverter()
+};
+```
 
 # Database schema
 ## Ability
