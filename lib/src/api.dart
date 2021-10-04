@@ -1,6 +1,7 @@
 import 'package:savageapi/src/converter.dart';
 import 'package:savageapi/src/core/clients/postgrest_client.dart';
 import 'package:savageapi/src/core/clients/supabase_client.dart';
+import 'package:savageapi/src/features/handicap/handicap_endpoint.dart';
 import 'client.dart';
 import 'features/ability/ability.dart';
 import 'features/equipment/equipment.dart';
@@ -39,9 +40,15 @@ class SavageApi implements SavageApiCalls {
   EquipmentEndpoint equipment() {
     return EquipmentEndpoint(client);
   }
+
+  @override
+  HandicapEndpoint handicap() {
+    return HandicapEndpoint(client);
+  }
 }
 
 abstract class SavageApiCalls {
   AbilityEndpoint ability();
   EquipmentEndpoint equipment();
+  HandicapEndpoint handicap();
 }

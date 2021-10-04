@@ -1,5 +1,6 @@
 import 'features/ability/ability.dart';
 import 'features/equipment/equipment.dart';
+import 'features/handicap/handicap.dart';
 
 abstract class Converter<T> {
   const Converter();
@@ -9,6 +10,7 @@ abstract class Converter<T> {
 const Map<Type, Converter> _defaultConverters = {
   AbilityResource: AbilityConverter(),
   EquipmentResource: EquipmentConverter(),
+  HandicapResource: HandicapConverter(),
 };
 
 class ConverterFactory {
